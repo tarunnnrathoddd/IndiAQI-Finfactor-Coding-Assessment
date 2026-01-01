@@ -65,6 +65,10 @@ This project was developed as part of a technical assignment to evaluate problem
 
 ---
 
+![Pollutant Analysis Chart](docs/dominanat-analysis.png)
+
+---
+
 ## ⚙️ How to Run the Project
 
 ### Prerequisites
