@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 450px;
+    margin: 60px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.result.hidden {
+    display: none;
+}
+
+.aqi-box {
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+.aqi-good { background: #2ecc71; }
+.aqi-moderate { background: #f1c40f; }
+.aqi-poor { background: #e67e22; }
+.aqi-verypoor { background: #e74c3c; }
+.aqi-severe { background: #7f0000; }
+
+.health {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.time {
+    font-size: 12px;
+    color: gray;
+}

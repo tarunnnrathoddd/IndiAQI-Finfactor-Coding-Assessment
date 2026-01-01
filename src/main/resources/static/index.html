@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>India AQI Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🌍 Air Quality Index</h1>
+    <p>Check real-time AQI for any city</p>
+
+    <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city (e.g. Delhi)">
+        <button onclick="getAQI()">Search</button>
+    </div>
+<!-- <p><strong>Dominant Pollutant:</strong> <span id="dominantPollutant"></span></p> -->
+
+    <div id="result" class="result hidden">
+        <h2 id="cityName"></h2>
+        <div id="aqiBox" class="aqi-box">
+            <span>AQI</span>
+            <h1 id="aqiValue"></h1>
+            <p id="aqiStatus"></p>
+        </div>
+
+        <p><strong>PM2.5:</strong> <span id="pm25"></span></p>
+<p><strong>PM10:</strong> <span id="pm10"></span></p>
+<p><strong>Dominant Pollutant:</strong> <span id="dominantPollutant"></span></p>
+<h3>Pollutant Breakdown</h3>
+
+<p><strong>NO₂:</strong> <span id="no2"></span></p>
+<p><strong>SO₂:</strong> <span id="so2"></span></p>
+<p><strong>O₃:</strong> <span id="o3"></span></p>
+<p><strong>CO:</strong> <span id="co"></span></p>
+
+        <p class="health" id="healthMsg"></p>
+        <p class="time">Last updated: <span id="updatedTime"></span></p>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
