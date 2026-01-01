@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>India AQI Checker</title>
+    <title>Air Quality Index</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <div class="container">
-    <h1>🌍 Air Quality Index</h1>
+    <h1>🌍 Air Quality Index 🌍</h1>
     <p>Check real-time AQI for any city</p>
 
     <div class="search-box">
@@ -29,7 +31,8 @@
 <p><strong>PM10:</strong> <span id="pm10"></span></p>
 <p><strong>Dominant Pollutant:</strong> <span id="dominantPollutant"></span></p>
 <h3>Pollutant Breakdown</h3>
-
+        <h3>Dominant Pollutant Comparison</h3>
+        <canvas id="pollutantChart"></canvas>
 <p><strong>NO₂:</strong> <span id="no2"></span></p>
 <p><strong>SO₂:</strong> <span id="so2"></span></p>
 <p><strong>O₃:</strong> <span id="o3"></span></p>
