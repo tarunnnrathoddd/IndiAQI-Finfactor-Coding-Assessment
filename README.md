@@ -58,24 +58,30 @@ This project was developed as part of a technical assignment to evaluate problem
 ## 📂 Project Structure
 
 demo/
-├── src/main/java/com/aqi/demo
-│ ├── controller
-│ ├── service
-│ ├── client
-│ ├── dto
-│ ├── config
-│ └── IndiAqiApplication.java
-│
-├── src/main/resources
-│ ├── static
+├── src/
+│ └── main/
+│ ├── java/
+│ │ └── com/
+│ │ └── aqi/
+│ │ └── demo/
+│ │ ├── controller/
+│ │ ├── service/
+│ │ ├── client/
+│ │ ├── dto/
+│ │ ├── config/
+│ │ └── IndiAqiApplication.java
+│ │
+│ └── resources/
+│ ├── static/
 │ │ ├── index.html
 │ │ ├── style.css
 │ │ └── app.js
 │ └── application.properties
 │
 ├── pom.xml
-└── mvnw
-
+├── mvnw
+├── mvnw.cmd
+└── README.md
 
 ---
 
