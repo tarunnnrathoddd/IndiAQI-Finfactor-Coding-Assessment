@@ -20,6 +20,10 @@ This project was developed as part of a technical assignment to evaluate problem
 - Health recommendations based on AQI
 - Color-coded AQI UI
 - Intelligent in-memory caching (TTL + max size)
+- Interactive pollutant analysis charts using Chart.js
+- Dominant pollutant highlighted dynamically
+- Optimized dashboard layout for desktop screens
+
 
 ### Advanced Enhancements
 - Dominant pollutant detection (API + auto-computed fallback)
