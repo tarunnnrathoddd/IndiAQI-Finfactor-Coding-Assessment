@@ -1,10 +1,37 @@
-HELP.md
+# # Maven
+# target/
+
+# # IDE
+# .idea/
+# .vscode/
+# *.iml
+
+# # OS files
+# .DS_Store
+# ._*
+# Thumbs.db
+
+# # Logs
+# *.log
+
+# # Node (if any)
+# node_modules/
+
+# # Env files
+# .env
+
+
+############################################
+# Maven
+############################################
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+############################################
+# Spring / STS
+############################################
 .apt_generated
 .classpath
 .factorypath
@@ -13,13 +40,22 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+############################################
+# IntelliJ IDEA
+############################################
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+############################################
+# VS Code
+############################################
+.vscode/
+
+############################################
+# NetBeans
+############################################
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,5 +65,20 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+############################################
+# OS Generated Files (IMPORTANT)
+############################################
+.DS_Store
+._*
+Thumbs.db
+
+############################################
+# Logs
+############################################
+*.log
+
+############################################
+# Environment / Secrets
+############################################
+.env
+application-*.properties
