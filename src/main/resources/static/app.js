@@ -4,16 +4,34 @@
 let pollutantChart = null;
 
 // ===============================
-// Render Dominant Pollutant Bar Chart
+// Animate AQI Number
+// ===============================
+function animateAQI(target) {
+    const el = document.getElementById("aqiValue");
+    let current = 0;
+
+    const interval = setInterval(() => {
+        current += Math.ceil(target / 30);
+        if (current >= target) {
+            el.innerText = target;
+            clearInterval(interval);
+        } else {
+            el.innerText = current;
+        }
+    }, 20);
+}
+
+// ===============================
+// Render Pollutant Chart
 // ===============================
 function renderDominantPollutantChart(data) {
     const pollutants = {
-        "PM2.5": data.pm25,
-        "PM10": data.pm10,
-        "NO₂": data.no2,
-        "SO₂": data.so2,
-        "O₃": data.o3,
-        "CO": data.co
+        pm25: data.pm25,
+        pm10: data.pm10,
+        no2: data.no2,
+        so2: data.so2,
+        o3: data.o3,
+        co: data.co
     };
 
     const labels = [];
@@ -22,52 +40,42 @@ function renderDominantPollutantChart(data) {
 
     Object.entries(pollutants).forEach(([key, value]) => {
         if (value !== null && value !== undefined && value !== "N/A") {
-            labels.push(key);
+            labels.push(key.toUpperCase());
             values.push(value);
 
-            if (
-                data.dominantPollutant &&
-                key.replace(".", "").toUpperCase() === data.dominantPollutant.toUpperCase()
-            ) {
-                colors.push("#e74c3c"); // dominant pollutant
-            } else {
-                colors.push("#3498db");
-            }
+            colors.push(
+                data.dominantPollutant?.toLowerCase() === key
+                    ? "#e74c3c"
+                    : "#3498db"
+            );
         }
     });
-
-    // Safety check
-    if (typeof Chart === "undefined") return;
 
     const canvas = document.getElementById("pollutantChart");
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
 
-    // Destroy previous chart if exists
-    if (pollutantChart) {
-        pollutantChart.destroy();
-    }
+    if (pollutantChart) pollutantChart.destroy();
 
     pollutantChart = new Chart(ctx, {
         type: "bar",
         data: {
-            labels: labels,
+            labels,
             datasets: [{
-                label: "Current Pollutant Concentration",
+                label: "Pollutant Concentration",
                 data: values,
                 backgroundColor: colors
             }]
         },
         options: {
             responsive: true,
+            animation: { duration: 800 },
             plugins: {
                 legend: { display: false }
             },
             scales: {
-                y: {
-                    beginAtZero: true
-                }
+                y: { beginAtZero: true }
             }
         }
     });
@@ -78,34 +86,30 @@ function renderDominantPollutantChart(data) {
 // ===============================
 async function getAQI() {
     const city = document.getElementById("cityInput").value.trim();
-
     if (!city) {
         alert("Please enter a city");
         return;
     }
 
-    // Hide old result while loading
-    document.getElementById("result").classList.add("hidden");
+    const resultBox = document.getElementById("result");
+    resultBox.classList.add("hidden");
 
     try {
-        const response = await fetch(
-    `/api/air-quality?city=${encodeURIComponent(city)}`
-);
-
-
-        if (!response.ok) {
-            throw new Error("API error");
-        }
+        const response = await fetch(`/api/air-quality?city=${encodeURIComponent(city)}`);
+        if (!response.ok) throw new Error("API error");
 
         const data = await response.json();
 
-        // Show result container
-        document.getElementById("result").classList.remove("hidden");
+        // Show result FIRST (important)
+        resultBox.classList.remove("hidden");
 
-        // Basic AQI info
+        // Basic info
         document.getElementById("cityName").innerText = data.city;
-        document.getElementById("aqiValue").innerText = data.aqi;
         document.getElementById("aqiStatus").innerText = data.status;
+        document.getElementById("healthMsg").innerText = data.healthMessage;
+        document.getElementById("updatedTime").innerText = data.lastUpdated;
+
+        animateAQI(data.aqi);
 
         // Pollutants
         document.getElementById("pm25").innerText = data.pm25 ?? "N/A";
@@ -115,17 +119,10 @@ async function getAQI() {
         document.getElementById("o3").innerText = data.o3 ?? "N/A";
         document.getElementById("co").innerText = data.co ?? "N/A";
 
-        // Messages
-        document.getElementById("healthMsg").innerText = data.healthMessage;
-        document.getElementById("updatedTime").innerText = data.lastUpdated;
-
-        // Dominant pollutant
         document.getElementById("dominantPollutant").innerText =
-            data.dominantPollutant
-                ? data.dominantPollutant.toUpperCase()
-                : "N/A";
+            data.dominantPollutant?.toUpperCase() || "N/A";
 
-        // AQI color logic
+        // AQI color
         const aqiBox = document.getElementById("aqiBox");
         aqiBox.className = "aqi-box";
 
@@ -135,12 +132,11 @@ async function getAQI() {
         else if (data.aqi <= 300) aqiBox.classList.add("aqi-verypoor");
         else aqiBox.classList.add("aqi-severe");
 
-        // Render bar chart safely
-        if (typeof Chart !== "undefined") {
-            renderDominantPollutantChart(data);
-        }
+        // Render chart AFTER visible
+        setTimeout(() => renderDominantPollutantChart(data), 200);
 
     } catch (err) {
-        console.error("AQI fetch/render error:", err);
+        console.error("AQI error:", err);
+        alert("Failed to fetch AQI data");
     }
 }
